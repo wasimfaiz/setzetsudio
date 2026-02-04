@@ -3195,10 +3195,37 @@
         z-index: 2;
       }
 
-      .video-duration,
-      .video-views {
+      .video-views,
+      .video-duration {
         position: absolute;
         z-index: 2;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .video-views i,
+      .video-duration i {
+        font-size: 1.1rem;
+      }
+
+      .video-duration {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .video-views {
+        top: 15px;
+        right: 15px;
+      }
+
+      .video-views::before,
+      .video-views::after {
+        content: none !important;
       }
     </style>
 
@@ -3206,6 +3233,7 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+  </head>
   <body>
     <div class="scroll-progress"></div>
 
@@ -3275,940 +3303,932 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <canvas id="hero-canvas"></canvas>
-        <div class="hero-content">
-          <h1 id="heroTitle">
-            <span id="heroTextOriginal"
-              >Helping our partners<br />build original brands<br /><span
-                style="font-style: italic"
-                >that shine.</span
-              ></span
-            >
-            <div id="liquidTextContainer"></div>
-          </h1>
-          <p>
-            A strategy-led design studio specializing in laying down the awesome
-            sauce <span style="font-style: italic">for</span>
-            <span class="rotating-word" id="rotatingWord">Technology</span>
-            brands.
-          </p>
-          <button class="cta-button">Start Your Project</button>
-        </div>
-      </section>
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-content">
+        <h1 id="heroTitle">
+          <span id="heroTextOriginal"
+            >Helping our partners<br />build original brands<br /><span
+              style="font-style: italic"
+              >that shine.</span
+            ></span
+          >
+          <div id="liquidTextContainer"></div>
+        </h1>
+        <p>
+          A strategy-led design studio specializing in laying down the awesome
+          sauce <span style="font-style: italic">for</span>
+          <span class="rotating-word" id="rotatingWord">Technology</span>
+          brands.
+        </p>
+        <button class="cta-button">Start Your Project</button>
+      </div>
+    </section>
 
-      <!-- Skills Marquee Section -->
-      <section class="skills-marquee" id="skills">
-        <div class="marquee-wrapper-tilt">
-           <!-- Row 1: Left to Right -->
-           <div class="marquee-row marquee-left">
-             <div class="marquee-content">
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-             </div>
-             <div class="marquee-content" aria-hidden="true">
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-             </div>
-           </div>
-
-           <!-- Row 2: Right to Left (Hollow) -->
-           <div class="marquee-row marquee-right">
-             <div class="marquee-content">
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-             </div>
-             <div class="marquee-content" aria-hidden="true">
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-               <span>WEBFLOW</span><span>REACT</span><span>NEXT</span><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span><span>PYTHON</span>
-             </div>
-           </div>
-        </div>
-        
-        <style>
-           .skills-marquee {
-             position: relative;
-             width: 100%;
-             padding: 8rem 0; /* Space for the tilt */
-             overflow: hidden;
-             background: var(--bg-color);
-             z-index: 2;
-           }
-           
-           .marquee-wrapper-tilt {
-             transform: rotate(-3deg) scale(1.1); /* Tilt and slightly scale to cover edges */
-             width: 100%;
-             display: flex;
-             flex-direction: column;
-             gap: 1.5rem;
-           }
-
-           .marquee-row {
-             display: flex;
-             width: 100%;
-             overflow: hidden;
-             white-space: nowrap;
-             user-select: none;
-           }
-
-           .marquee-content {
-             display: flex;
-             animation: marquee-scroll 20s linear infinite;
-             flex-shrink: 0;
-           }
-           
-           .marquee-left .marquee-content {
-             animation-direction: normal;
-           }
-           
-           .marquee-right .marquee-content {
-             animation-direction: reverse;
-           }
-
-           .marquee-row span {
-             font-family: "Playfair Display", Georgia, serif; /* Using existing serif font for premium feel */
-             font-size: clamp(3rem, 6vw, 6rem);
-             font-weight: 900;
-             padding: 0 2rem;
-             color: var(--text-primary);
-             opacity: 0.9;
-             line-height: 1;
-           }
-           
-           /* Hollow Text Style for 2nd row */
-           .marquee-right span {
-              color: transparent;
-              -webkit-text-stroke: 2px var(--text-primary); /* Outline effect */
-              opacity: 0.5;
-           }
-
-           @keyframes marquee-scroll {
-             from { transform: translateX(0); }
-             to { transform: translateX(-100%); }
-           }
-        </style>
-      </section>
-
-      <!-- Services Section -->
-      <section class="services" id="services">
-        <div class="services-wrapper">
-          <div class="services-intro fade-in">
-            <h2>We craft<br />experiences<br />that matter.</h2>
-            <p>
-              From concept to launch, we transform ideas into digital
-              masterpieces that captivate and convert.
-            </p>
+    <!-- Skills Marquee Section -->
+    <section class="skills-marquee" id="skills">
+      <div class="marquee-wrapper-tilt">
+        <!-- Row 1: Left to Right -->
+        <div class="marquee-row marquee-left">
+          <div class="marquee-content">
+            <span>WEBFLOW</span><span>REACT</span><span>NEXT</span
+            ><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span
+            ><span>PYTHON</span> <span>WEBFLOW</span><span>REACT</span
+            ><span>NEXT</span><span>GSAP</span><span>KOTLIN</span
+            ><span>BLENDER</span><span>PYTHON</span>
           </div>
-
-          <div class="scroll-indicator">Explore Our Services</div>
-        </div>
-
-        <div class="services-horizontal-wrapper">
-          <div class="services-scroll-container">
-            <div class="services-track" id="servicesTrack">
-              <div class="service-card-large">
-                <div class="service-card-content">
-                  <div>
-                    <div class="service-number">01</div>
-                    <h3>Web & Mobile Development</h3>
-                    <p>
-                      Lightning-fast, scalable applications built with
-                      cutting-edge technology. We create digital products that
-                      users love and businesses rely on.
-                    </p>
-                  </div>
-                  <div>
-                    <ul class="service-features">
-                      <li>Progressive Web Apps</li>
-                      <li>Native iOS & Android</li>
-                      <li>Real-time Applications</li>
-                      <li>API Development</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="service-card-large">
-                <div class="service-card-content">
-                  <div>
-                    <div class="service-number">02</div>
-                    <h3>SEO & Performance Marketing</h3>
-                    <p>
-                      Data-driven strategies that dominate search rankings and
-                      maximize ROI. We turn visibility into revenue.
-                    </p>
-                  </div>
-                  <div>
-                    <ul class="service-features">
-                      <li>Technical SEO Audits</li>
-                      <li>Content Strategy</li>
-                      <li>PPC Campaigns</li>
-                      <li>Analytics & Insights</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="service-card-large">
-                <div class="service-card-content">
-                  <div>
-                    <div class="service-number">03</div>
-                    <h3>UI/UX & Brand Design</h3>
-                    <p>
-                      Stunning interfaces and unforgettable brand identities. We
-                      design experiences that tell your story and convert
-                      visitors into customers.
-                    </p>
-                  </div>
-                  <div>
-                    <ul class="service-features">
-                      <li>Brand Identity Systems</li>
-                      <li>UI/UX Design</li>
-                      <li>Design Systems</li>
-                      <li>Motion Graphics</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="service-card-large">
-                <div class="service-card-content">
-                  <div>
-                    <div class="service-number">04</div>
-                    <h3>Video Production</h3>
-                    <p>
-                      Cinematic storytelling that captivates audiences. From
-                      concept to post-production, we create videos that drive
-                      engagement and conversions.
-                    </p>
-                  </div>
-                  <div>
-                    <ul class="service-features">
-                      <li>Brand Films & Commercials</li>
-                      <li>Product Videos</li>
-                      <li>Animation & Motion Design</li>
-                      <li>Social Media Content</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      <!-- Gallery Section -->
-      <section class="gallery" id="work">
-        <div class="gallery-header fade-in">
-          <h2>Featured<br />Work</h2>
-          <p>
-            Award-winning projects that push boundaries and deliver exceptional
-            results for our clients.
-          </p>
-
-          <div class="gallery-filter">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Web Design</button>
-            <button class="filter-btn">Mobile Apps</button>
-            <button class="filter-btn">Branding</button>
-            <button class="filter-btn">E-Commerce</button>
+          <div class="marquee-content" aria-hidden="true">
+            <span>WEBFLOW</span><span>REACT</span><span>NEXT</span
+            ><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span
+            ><span>PYTHON</span> <span>WEBFLOW</span><span>REACT</span
+            ><span>NEXT</span><span>GSAP</span><span>KOTLIN</span
+            ><span>BLENDER</span><span>PYTHON</span>
           </div>
         </div>
 
-        <div class="bento-grid">
-          <div class="bento-item fade-in" data-category="web">
-            <img
-              src="project-1-fashion.png"
-              alt="Luxe Fashion Store"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">E-Commerce</div>
-              <div class="bento-title">Luxe Fashion Store</div>
-              <div class="bento-description">
-                Premium shopping experience with 300% conversion increase
-              </div>
-              <div class="bento-tags">
-                <span class="bento-tag">Shopify</span>
-                <span class="bento-tag">React</span>
-                <span class="bento-tag">UX Design</span>
-              </div>
-            </div>
-            <div class="bento-number">01</div>
-            <div class="bento-cta">View Project</div>
+        <!-- Row 2: Right to Left (Hollow) -->
+        <div class="marquee-row marquee-right">
+          <div class="marquee-content">
+            <span>WEBFLOW</span><span>REACT</span><span>NEXT</span
+            ><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span
+            ><span>PYTHON</span> <span>WEBFLOW</span><span>REACT</span
+            ><span>NEXT</span><span>GSAP</span><span>KOTLIN</span
+            ><span>BLENDER</span><span>PYTHON</span>
           </div>
-
-          <div class="bento-item fade-in" data-category="mobile">
-            <img
-              src="project-2-fintech.png"
-              alt="FinTech Dashboard"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">Mobile App</div>
-              <div class="bento-title">FinTech Dashboard</div>
-              <div class="bento-description">
-                Real-time analytics & portfolio management
-              </div>
-              <div class="bento-tags">
-                <span class="bento-tag">React Native</span>
-                <span class="bento-tag">AI</span>
-              </div>
-            </div>
-            <div class="bento-number">02</div>
-            <div class="bento-cta">View Project</div>
+          <div class="marquee-content" aria-hidden="true">
+            <span>WEBFLOW</span><span>REACT</span><span>NEXT</span
+            ><span>GSAP</span><span>KOTLIN</span><span>BLENDER</span
+            ><span>PYTHON</span> <span>WEBFLOW</span><span>REACT</span
+            ><span>NEXT</span><span>GSAP</span><span>KOTLIN</span
+            ><span>BLENDER</span><span>PYTHON</span>
           </div>
-
-          <div class="bento-item fade-in" data-category="branding">
-            <img
-              src="project-3-branding.png"
-              alt="TechCorp Rebrand"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">Brand Identity</div>
-              <div class="bento-title">TechCorp Rebrand</div>
-              <div class="bento-description">
-                Complete visual identity & design system
-              </div>
-              <div class="bento-tags">
-                <span class="bento-tag">Brand Strategy</span>
-                <span class="bento-tag">Logo</span>
-              </div>
-            </div>
-            <div class="bento-number">03</div>
-            <div class="bento-cta">View Project</div>
-          </div>
-
-          <div class="bento-item fade-in" data-category="web">
-            <img
-              src="project-4-saas.png"
-              alt="CloudFlow"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">SaaS Platform</div>
-              <div class="bento-title">CloudFlow</div>
-              <div class="bento-description">
-                Enterprise workflow automation platform
-              </div>
-              <div class="bento-tags">
-                <span class="bento-tag">Vue.js</span>
-                <span class="bento-tag">Node.js</span>
-              </div>
-            </div>
-            <div class="bento-number">04</div>
-            <div class="bento-cta">View Project</div>
-          </div>
-
-          <div class="bento-item fade-in" data-category="mobile">
-            <img
-              src="project-2-fintech.png"
-              alt="ConnectHub"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">Social App</div>
-              <div class="bento-title">ConnectHub</div>
-              <div class="bento-description">Next-gen community platform</div>
-              <div class="bento-tags">
-                <span class="bento-tag">Flutter</span>
-                <span class="bento-tag">Firebase</span>
-              </div>
-            </div>
-            <div class="bento-number">05</div>
-            <div class="bento-cta">View Project</div>
-          </div>
-
-          <div class="bento-item fade-in" data-category="web">
-            <img
-              src="project-4-saas.png"
-              alt="Global Ventures"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">Corporate Site</div>
-              <div class="bento-title">Global Ventures</div>
-              <div class="bento-description">
-                Multi-language enterprise website
-              </div>
-              <div class="bento-tags">
-                <span class="bento-tag">Next.js</span>
-                <span class="bento-tag">CMS</span>
-              </div>
-            </div>
-            <div class="bento-number">06</div>
-            <div class="bento-cta">View Project</div>
-          </div>
-
-          <div class="bento-item fade-in" data-category="web">
-            <img
-              src="project-1-fashion.png"
-              alt="StartupLaunch"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">Marketing Site</div>
-              <div class="bento-title">StartupLaunch</div>
-              <div class="bento-description">High-converting landing pages</div>
-              <div class="bento-tags">
-                <span class="bento-tag">SEO</span>
-                <span class="bento-tag">Analytics</span>
-              </div>
-            </div>
-            <div class="bento-number">07</div>
-            <div class="bento-cta">View Project</div>
-          </div>
-
-          <div class="bento-item fade-in" data-category="branding">
-            <img
-              src="project-3-branding.png"
-              alt="Artisan Co."
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div class="bento-overlay">
-              <div class="bento-category">Brand Design</div>
-              <div class="bento-title">Artisan Co.</div>
-              <div class="bento-description">Handcrafted brand experience</div>
-              <div class="bento-tags">
-                <span class="bento-tag">Print</span>
-                <span class="bento-tag">Packaging</span>
-              </div>
-            </div>
-            <div class="bento-number">08</div>
-            <div class="bento-cta">View Project</div>
-          </div>
-        </div>
-
-        <div class="load-more-container fade-in">
-          <button class="load-more-btn">Load More Projects</button>
-        </div>
-      </section>
-
-      <!-- Testimonials Section -->
-      <section class="testimonials" id="testimonials">
-        <div class="testimonials-header fade-in">
-          <div class="testimonials-label">Client Love</div>
-          <h2>What Our<br />Clients Say</h2>
-          <p>
-            Don't just take our word for it. Hear from the brands we've helped
-            transform.
-          </p>
-        </div>
-
-        <div class="testimonials-carousel">
-          <div class="testimonial-track">
-            <div class="testimonial-card fade-in">
-              <div class="testimonial-rating">
-                <span>★</span><span>★</span><span>★</span><span>★</span
-                ><span>★</span>
-              </div>
-              <blockquote class="testimonial-quote">
-                "SetZet transformed our entire digital presence. The results
-                exceeded every expectation. Our conversion rate tripled in just
-                3 months."
-              </blockquote>
-              <div class="testimonial-author">
-                <div class="author-avatar">
-                  <img
-                    src="client-sarah.png"
-                    alt="Sarah Mitchell"
-                    style="width: 100%; height: 100%; object-fit: cover"
-                  />
-                </div>
-                <div class="author-info">
-                  <div class="author-name">Sarah Mitchell</div>
-                  <div class="author-title">CEO, TechFlow Inc.</div>
-                </div>
-              </div>
-              <div class="testimonial-metric">
-                <div class="metric-value">+320%</div>
-                <div class="metric-label">Conversion Increase</div>
-              </div>
-            </div>
-
-            <div class="testimonial-card fade-in">
-              <div class="testimonial-rating">
-                <span>★</span><span>★</span><span>★</span><span>★</span
-                ><span>★</span>
-              </div>
-              <blockquote class="testimonial-quote">
-                "The attention to detail and creative vision SetZet brought to
-                our brand refresh was phenomenal. They truly understand modern
-                design."
-              </blockquote>
-              <div class="testimonial-author">
-                <div class="author-avatar">
-                  <img
-                    src="client-james.png"
-                    alt="James Chen"
-                    style="width: 100%; height: 100%; object-fit: cover"
-                  />
-                </div>
-                <div class="author-info">
-                  <div class="author-name">James Chen</div>
-                  <div class="author-title">Founder, Artisan Co.</div>
-                </div>
-              </div>
-              <div class="testimonial-metric">
-                <div class="metric-value">98%</div>
-                <div class="metric-label">Client Satisfaction</div>
-              </div>
-            </div>
-
-            <div class="testimonial-card fade-in">
-              <div class="testimonial-rating">
-                <span>★</span><span>★</span><span>★</span><span>★</span
-                ><span>★</span>
-              </div>
-              <blockquote class="testimonial-quote">
-                "Working with SetZet was a game-changer. They delivered a mobile
-                app that our users absolutely love. 5-star reviews across the
-                board."
-              </blockquote>
-              <div class="testimonial-author">
-                <div class="author-avatar">
-                  <img
-                    src="client-sarah.png"
-                    alt="Emma Rodriguez"
-                    style="width: 100%; height: 100%; object-fit: cover"
-                  />
-                </div>
-                <div class="author-info">
-                  <div class="author-name">Emma Rodriguez</div>
-                  <div class="author-title">Product Lead, FinHub</div>
-                </div>
-              </div>
-              <div class="testimonial-metric">
-                <div class="metric-value">4.9★</div>
-                <div class="metric-label">App Store Rating</div>
-              </div>
-            </div>
-
-            <div class="testimonial-card fade-in">
-              <div class="testimonial-rating">
-                <span>★</span><span>★</span><span>★</span><span>★</span
-                ><span>★</span>
-              </div>
-              <blockquote class="testimonial-quote">
-                "Their SEO strategy completely revolutionized our online
-                visibility. We're now ranking #1 for all our target keywords.
-                Incredible work."
-              </blockquote>
-              <div class="testimonial-author">
-                <div class="author-avatar">
-                  <img
-                    src="client-james.png"
-                    alt="Michael Kumar"
-                    style="width: 100%; height: 100%; object-fit: cover"
-                  />
-                </div>
-                <div class="author-info">
-                  <div class="author-name">Michael Kumar</div>
-                  <div class="author-title">CMO, GlobalVentures</div>
-                </div>
-              </div>
-              <div class="testimonial-metric">
-                <div class="metric-value">+580%</div>
-                <div class="metric-label">Organic Traffic</div>
-              </div>
-            </div>
-
-            <div class="testimonial-card fade-in">
-              <div class="testimonial-rating">
-                <span>★</span><span>★</span><span>★</span><span>★</span
-                ><span>★</span>
-              </div>
-              <blockquote class="testimonial-quote">
-                "SetZet doesn't just build websites, they craft experiences. Our
-                new platform is stunning, fast, and our customers can't stop
-                raving about it."
-              </blockquote>
-              <div class="testimonial-author">
-                <div class="author-avatar">
-                  <img
-                    src="client-sarah.png"
-                    alt="Lisa Cooper"
-                    style="width: 100%; height: 100%; object-fit: cover"
-                  />
-                </div>
-                <div class="author-info">
-                  <div class="author-name">Lisa Cooper</div>
-                  <div class="author-title">Director, LuxeFashion</div>
-                </div>
-              </div>
-              <div class="testimonial-metric">
-                <div class="metric-value">2.3s</div>
-                <div class="metric-label">Load Time</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-controls">
-          <button class="carousel-btn prev" onclick="moveCarousel(-1)">
-            ←
-          </button>
-          <div class="carousel-dots"></div>
-          <button class="carousel-btn next" onclick="moveCarousel(1)">→</button>
-        </div>
-
-        <div class="testimonial-stats">
-          <div class="stat-block fade-in">
-            <div class="stat-number counter" data-target="500">0</div>
-            <div class="stat-text">Happy Clients</div>
-          </div>
-          <div class="stat-block fade-in">
-            <div class="stat-number counter" data-target="4.9">0</div>
-            <div class="stat-text">Average Rating</div>
-          </div>
-          <div class="stat-block fade-in">
-            <div class="stat-number counter" data-target="100">0</div>
-            <div class="stat-text">Satisfaction</div>
-          </div>
-          <div class="stat-block fade-in">
-            <div class="stat-number counter" data-target="12">0</div>
-            <div class="stat-text">Awards Won</div>
-          </div>
-        </div>
-
-        <div class="video-testimonials">
-          <div class="video-section-header fade-in">
-            <h2 class="video-title">see it in action</h2>
-            <p class="video-subtitle">
-              Watch how we've transformed businesses with our innovative digital
-              solutions. From concept to execution, see the magic unfold.
-            </p>
-
-            <div class="video-categories">
-              <button class="category-chip active">All Projects</button>
-              <button class="category-chip">Web Design</button>
-              <button class="category-chip">Mobile Apps</button>
-              <button class="category-chip">Branding</button>
-              <button class="category-chip">Case Studies</button>
-            </div>
-          </div>
-
-          <div class="video-wall">
-            <div class="video-grid">
-              <div class="video-card featured fade-in" data-video="6">
-                <div class="video-thumbnail">
-                  <img
-                    src="thumb-cloudflow.png"
-                    class="video-bg"
-                    alt="CloudFlow SaaS"
-                  />
-                  <div class="play-button"><i class="ri-play-fill"></i></div>
-                  <div class="video-duration">
-                    <i class="ri-time-line"></i> 1:00
-                  </div>
-                  <div class="video-views">
-                    <i class="ri-eye-line"></i> 11.2K
-                  </div>
-                </div>
-                <div class="video-info">
-                  <div class="video-category">Web Platform</div>
-                  <h4>CloudFlow SaaS Build</h4>
-                  <p>Enterprise platform serving 100K+ users daily.</p>
-                </div>
-              </div>
-
-              <div class="video-card medium fade-in" data-video="2">
-                <div class="video-thumbnail">
-                  <img
-                    src="thumb-finhub.png"
-                    class="video-bg"
-                    alt="FinHub App"
-                  />
-                  <div class="play-button"><i class="ri-play-fill"></i></div>
-                  <div class="video-duration">
-                    <i class="ri-time-line"></i> 1:00
-                  </div>
-                  <div class="video-views">
-                    <i class="ri-eye-line"></i> 8.2K
-                  </div>
-                </div>
-                <div class="video-info">
-                  <div class="video-category">Mobile App</div>
-                  <h4>FinHub Launch Story</h4>
-                  <p>
-                    Building a FinTech app from scratch to 50K users in 3
-                    months.
-                  </p>
-                </div>
-              </div>
-
-              <div class="video-card small fade-in" data-video="3">
-                <div class="video-thumbnail">
-                  <img
-                    src="thumb-luxefashion.png"
-                    class="video-bg"
-                    alt="LuxeFashion"
-                  />
-                  <div class="play-button"><i class="ri-play-fill"></i></div>
-                  <div class="video-duration">
-                    <i class="ri-time-line"></i> 1:00
-                  </div>
-                  <div class="video-views">
-                    <i class="ri-eye-line"></i> 15.3K
-                  </div>
-                </div>
-                <div class="video-info">
-                  <div class="video-category">E-Commerce</div>
-                  <h4>LuxeFashion Success</h4>
-                  <p>300% conversion rate increase in 90 days.</p>
-                </div>
-              </div>
-
-              <div class="video-card small fade-in" data-video="4">
-                <div class="video-thumbnail">
-                  <img
-                    src="thumb-globalventures.png"
-                    class="video-bg"
-                    alt="GlobalVentures SEO"
-                  />
-                  <div class="play-button"><i class="ri-play-fill"></i></div>
-                  <div class="video-duration">
-                    <i class="ri-time-line"></i> 1:00
-                  </div>
-                  <div class="video-views">
-                    <i class="ri-eye-line"></i> 6.7K
-                  </div>
-                </div>
-                <div class="video-info">
-                  <div class="video-category">SEO Campaign</div>
-                  <h4>GlobalVentures Growth</h4>
-                  <p>580% organic traffic increase through strategic SEO.</p>
-                </div>
-              </div>
-
-              <div class="video-card small fade-in" data-video="5">
-                <div class="video-thumbnail">
-                  <img
-                    src="thumb-artisanco.png"
-                    class="video-bg"
-                    alt="Artisan Co Branding"
-                  />
-                  <div class="play-button"><i class="ri-play-fill"></i></div>
-                  <div class="video-duration">
-                    <i class="ri-time-line"></i> 1:00
-                  </div>
-                  <div class="video-views">
-                    <i class="ri-eye-line"></i> 9.4K
-                  </div>
-                </div>
-                <div class="video-info">
-                  <div class="video-category">Brand Identity</div>
-                  <h4>Artisan Co. Redesign</h4>
-                  <p>Crafting a timeless brand identity system.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-cta fade-in">
-            <div class="cta-decoration"></div>
-            <div class="cta-decoration"></div>
-
-            <div class="cta-container">
-              <div class="cta-content">
-                <span class="cta-eyebrow">Let's Work Together</span>
-                <h3>Ready to create<br />your success story?</h3>
-                <p>
-                  Let's transform your vision into reality. Schedule a free
-                  consultation today and discover how we can elevate your brand.
-                </p>
-
-                <div class="cta-buttons">
-                  <button class="cta-btn-primary">Start Your Project</button>
-                  <button class="cta-btn-secondary">Book a Call</button>
-                </div>
-
-                <div class="cta-trust">
-                  <div class="trust-item">
-                    <span class="trust-icon"
-                      ><i class="ri-checkbox-circle-fill"></i
-                    ></span>
-                    <span>Free Consultation</span>
-                  </div>
-                  <div class="trust-item">
-                    <span class="trust-icon"
-                      ><i class="ri-checkbox-circle-fill"></i
-                    ></span>
-                    <span>No Credit Card Required</span>
-                  </div>
-                  <div class="trust-item">
-                    <span class="trust-icon"
-                      ><i class="ri-checkbox-circle-fill"></i
-                    ></span>
-                    <span>24/7 Support</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Video Modal -->
-        <div class="video-modal" id="videoModal">
-          <div class="modal-content">
-            <button class="modal-close" onclick="closeVideoModal()">
-              <i class="ri-close-line"></i>
-            </button>
-            <div class="modal-video-player" id="modalPlayer">
-              ▶ Video Player
-            </div>
-            <div class="modal-details">
-              <h3 id="modalTitle">Project Title</h3>
-              <p id="modalDescription">Project description goes here...</p>
-              <div class="modal-stats">
-                <div class="modal-stat">
-                  <div class="modal-stat-value">12.5K</div>
-                  <div class="modal-stat-label">
-                    <i class="ri-eye-line"></i> Views
-                  </div>
-                </div>
-                <div class="modal-stat">
-                  <div class="modal-stat-value">98%</div>
-                  <div class="modal-stat-label">
-                    <i class="ri-pie-chart-line"></i> Success Rate
-                  </div>
-                </div>
-                <div class="modal-stat">
-                  <div class="modal-stat-value">6 Weeks</div>
-                  <div class="modal-stat-label">
-                    <i class="ri-calendar-line"></i> Timeline
-                  </div>
-                </div>
-                <div class="modal-stat">
-                  <div class="modal-stat-value">5★</div>
-                  <div class="modal-stat-label">
-                    <i class="ri-star-line"></i> Rating
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Chatbot -->
-      <button class="chatbot-trigger" onclick="toggleChatbot()">
-        <i class="ri-chat-smile-2-fill"></i>
-      </button>
-      <div class="chatbot-window" id="chatbot">
-        <div class="chatbot-header">SetZet AI Assistant</div>
-        <div class="chatbot-messages" id="messages">
-          <p style="color: var(--text-secondary); padding: 1rem">
-            👋 Hi! I'm here to help you learn about our services. How can I
-            assist you today?
-          </p>
-        </div>
-        <div class="chatbot-input">
-          <input
-            type="text"
-            placeholder="Ask me anything..."
-            id="chatInput"
-            onkeypress="handleChatEnter(event)"
-          />
-          <button onclick="sendMessage()">Send</button>
         </div>
       </div>
 
-      <!-- Scroll to Top Button -->
-      <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
-        ↑
-      </button>
+      <style>
+        .skills-marquee {
+          position: relative;
+          width: 100%;
+          padding: 8rem 0; /* Space for the tilt */
+          overflow: hidden;
+          background: var(--bg-color);
+          z-index: 2;
+        }
 
-      <!-- Footer -->
-      <footer>
-        <div class="footer-main">
-          <div class="footer-top">
-            <div class="footer-brand">
-              <div class="footer-logo">SetZet</div>
-              <p class="footer-tagline">
-                A strategy-led design studio crafting exceptional digital
-                experiences for ambitious brands. Let's build something
-                extraordinary together.
-              </p>
-              <div class="footer-social">
-                <a href="#" class="social-link" aria-label="Twitter"
-                  ><i class="ri-twitter-x-line"></i
-                ></a>
-                <a href="#" class="social-link" aria-label="LinkedIn"
-                  ><i class="ri-linkedin-fill"></i
-                ></a>
-                <a href="#" class="social-link" aria-label="Instagram"
-                  ><i class="ri-instagram-line"></i
-                ></a>
-                <a href="#" class="social-link" aria-label="Dribbble"
-                  ><i class="ri-dribbble-line"></i
-                ></a>
-                <a href="#" class="social-link" aria-label="Behance"
-                  ><i class="ri-behance-line"></i
-                ></a>
+        .marquee-wrapper-tilt {
+          transform: rotate(-3deg) scale(1.1); /* Tilt and slightly scale to cover edges */
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .marquee-row {
+          display: flex;
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          user-select: none;
+        }
+
+        .marquee-content {
+          display: flex;
+          animation: marquee-scroll 20s linear infinite;
+          flex-shrink: 0;
+        }
+
+        .marquee-left .marquee-content {
+          animation-direction: normal;
+        }
+
+        .marquee-right .marquee-content {
+          animation-direction: reverse;
+        }
+
+        .marquee-row span {
+          font-family:
+            "Playfair Display", Georgia, serif; /* Using existing serif font for premium feel */
+          font-size: clamp(3rem, 6vw, 6rem);
+          font-weight: 900;
+          padding: 0 2rem;
+          color: var(--text-primary);
+          opacity: 0.9;
+          line-height: 1;
+        }
+
+        /* Hollow Text Style for 2nd row */
+        .marquee-right span {
+          color: transparent;
+          -webkit-text-stroke: 2px var(--text-primary); /* Outline effect */
+          opacity: 0.5;
+        }
+
+        @keyframes marquee-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-100%);
+          }
+        }
+      </style>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+      <div class="services-wrapper">
+        <div class="services-intro fade-in">
+          <h2>We craft<br />experiences<br />that matter.</h2>
+          <p>
+            From concept to launch, we transform ideas into digital masterpieces
+            that captivate and convert.
+          </p>
+        </div>
+
+        <div class="scroll-indicator">Explore Our Services</div>
+      </div>
+
+      <div class="services-horizontal-wrapper">
+        <div class="services-scroll-container">
+          <div class="services-track" id="servicesTrack">
+            <div class="service-card-large">
+              <div class="service-card-content">
+                <div>
+                  <div class="service-number">01</div>
+                  <h3>Web & Mobile Development</h3>
+                  <p>
+                    Lightning-fast, scalable applications built with
+                    cutting-edge technology. We create digital products that
+                    users love and businesses rely on.
+                  </p>
+                </div>
+                <div>
+                  <ul class="service-features">
+                    <li>Progressive Web Apps</li>
+                    <li>Native iOS & Android</li>
+                    <li>Real-time Applications</li>
+                    <li>API Development</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <div class="footer-column">
-              <h4>Services</h4>
-              <ul class="footer-links">
-                <li><a href="#services">Web Development</a></li>
-                <li><a href="#services">Mobile Apps</a></li>
-                <li><a href="#services">SEO & Marketing</a></li>
-                <li><a href="#services">UI/UX Design</a></li>
-                <li><a href="#services">Branding</a></li>
-              </ul>
-            </div>
-
-            <div class="footer-column">
-              <h4>Company</h4>
-              <ul class="footer-links">
-                <li><a href="#work">Our Work</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Blog</a></li>
-              </ul>
-            </div>
-
-            <div class="footer-column">
-              <h4>Newsletter</h4>
-              <div class="footer-newsletter">
-                <p style="color: var(--text-secondary); margin-bottom: 1rem">
-                  Subscribe to get updates on design trends and industry
-                  insights.
-                </p>
-                <form
-                  class="newsletter-form"
-                  onsubmit="handleNewsletter(event)"
-                >
-                  <input
-                    type="email"
-                    class="newsletter-input"
-                    placeholder="Enter your email"
-                    required
-                  />
-                  <button type="submit" class="newsletter-btn">→</button>
-                </form>
+            <div class="service-card-large">
+              <div class="service-card-content">
+                <div>
+                  <div class="service-number">02</div>
+                  <h3>SEO & Performance Marketing</h3>
+                  <p>
+                    Data-driven strategies that dominate search rankings and
+                    maximize ROI. We turn visibility into revenue.
+                  </p>
+                </div>
+                <div>
+                  <ul class="service-features">
+                    <li>Technical SEO Audits</li>
+                    <li>Content Strategy</li>
+                    <li>PPC Campaigns</li>
+                    <li>Analytics & Insights</li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="footer-bottom">
-            <div class="footer-love">
-              <span>© 2026 SetZet. Made with</span>
-              <span class="heart">♥</span>
-              <span>in San Francisco</span>
+            <div class="service-card-large">
+              <div class="service-card-content">
+                <div>
+                  <div class="service-number">03</div>
+                  <h3>UI/UX & Brand Design</h3>
+                  <p>
+                    Stunning interfaces and unforgettable brand identities. We
+                    design experiences that tell your story and convert visitors
+                    into customers.
+                  </p>
+                </div>
+                <div>
+                  <ul class="service-features">
+                    <li>Brand Identity Systems</li>
+                    <li>UI/UX Design</li>
+                    <li>Design Systems</li>
+                    <li>Motion Graphics</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <ul class="footer-bottom-links">
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Cookie Policy</a></li>
-            </ul>
+
+            <div class="service-card-large">
+              <div class="service-card-content">
+                <div>
+                  <div class="service-number">04</div>
+                  <h3>Video Production</h3>
+                  <p>
+                    Cinematic storytelling that captivates audiences. From
+                    concept to post-production, we create videos that drive
+                    engagement and conversions.
+                  </p>
+                </div>
+                <div>
+                  <ul class="service-features">
+                    <li>Brand Films & Commercials</li>
+                    <li>Product Videos</li>
+                    <li>Animation & Motion Design</li>
+                    <li>Social Media Content</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="work">
+      <div class="gallery-header fade-in">
+        <h2>Featured<br />Work</h2>
+        <p>
+          Award-winning projects that push boundaries and deliver exceptional
+          results for our clients.
+        </p>
+
+        <div class="gallery-filter">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Web Design</button>
+          <button class="filter-btn">Mobile Apps</button>
+          <button class="filter-btn">Branding</button>
+          <button class="filter-btn">E-Commerce</button>
+        </div>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-item fade-in" data-category="web">
+          <img
+            src="project-1-fashion.png"
+            alt="Luxe Fashion Store"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">E-Commerce</div>
+            <div class="bento-title">Luxe Fashion Store</div>
+            <div class="bento-description">
+              Premium shopping experience with 300% conversion increase
+            </div>
+            <div class="bento-tags">
+              <span class="bento-tag">Shopify</span>
+              <span class="bento-tag">React</span>
+              <span class="bento-tag">UX Design</span>
+            </div>
+          </div>
+          <div class="bento-number">01</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="mobile">
+          <img
+            src="project-2-fintech.png"
+            alt="FinTech Dashboard"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">Mobile App</div>
+            <div class="bento-title">FinTech Dashboard</div>
+            <div class="bento-description">
+              Real-time analytics & portfolio management
+            </div>
+            <div class="bento-tags">
+              <span class="bento-tag">React Native</span>
+              <span class="bento-tag">AI</span>
+            </div>
+          </div>
+          <div class="bento-number">02</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="branding">
+          <img
+            src="project-3-branding.png"
+            alt="TechCorp Rebrand"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">Brand Identity</div>
+            <div class="bento-title">TechCorp Rebrand</div>
+            <div class="bento-description">
+              Complete visual identity & design system
+            </div>
+            <div class="bento-tags">
+              <span class="bento-tag">Brand Strategy</span>
+              <span class="bento-tag">Logo</span>
+            </div>
+          </div>
+          <div class="bento-number">03</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="web">
+          <img
+            src="project-4-saas.png"
+            alt="CloudFlow"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">SaaS Platform</div>
+            <div class="bento-title">CloudFlow</div>
+            <div class="bento-description">
+              Enterprise workflow automation platform
+            </div>
+            <div class="bento-tags">
+              <span class="bento-tag">Vue.js</span>
+              <span class="bento-tag">Node.js</span>
+            </div>
+          </div>
+          <div class="bento-number">04</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="mobile">
+          <img
+            src="project-2-fintech.png"
+            alt="ConnectHub"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">Social App</div>
+            <div class="bento-title">ConnectHub</div>
+            <div class="bento-description">Next-gen community platform</div>
+            <div class="bento-tags">
+              <span class="bento-tag">Flutter</span>
+              <span class="bento-tag">Firebase</span>
+            </div>
+          </div>
+          <div class="bento-number">05</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="web">
+          <img
+            src="project-4-saas.png"
+            alt="Global Ventures"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">Corporate Site</div>
+            <div class="bento-title">Global Ventures</div>
+            <div class="bento-description">
+              Multi-language enterprise website
+            </div>
+            <div class="bento-tags">
+              <span class="bento-tag">Next.js</span>
+              <span class="bento-tag">CMS</span>
+            </div>
+          </div>
+          <div class="bento-number">06</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="web">
+          <img
+            src="project-1-fashion.png"
+            alt="StartupLaunch"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">Marketing Site</div>
+            <div class="bento-title">StartupLaunch</div>
+            <div class="bento-description">High-converting landing pages</div>
+            <div class="bento-tags">
+              <span class="bento-tag">SEO</span>
+              <span class="bento-tag">Analytics</span>
+            </div>
+          </div>
+          <div class="bento-number">07</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+
+        <div class="bento-item fade-in" data-category="branding">
+          <img
+            src="project-3-branding.png"
+            alt="Artisan Co."
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="bento-overlay">
+            <div class="bento-category">Brand Design</div>
+            <div class="bento-title">Artisan Co.</div>
+            <div class="bento-description">Handcrafted brand experience</div>
+            <div class="bento-tags">
+              <span class="bento-tag">Print</span>
+              <span class="bento-tag">Packaging</span>
+            </div>
+          </div>
+          <div class="bento-number">08</div>
+          <div class="bento-cta">View Project</div>
+        </div>
+      </div>
+
+      <div class="load-more-container fade-in">
+        <button class="load-more-btn">Load More Projects</button>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+      <div class="testimonials-header fade-in">
+        <div class="testimonials-label">Client Love</div>
+        <h2>What Our<br />Clients Say</h2>
+        <p>
+          Don't just take our word for it. Hear from the brands we've helped
+          transform.
+        </p>
+      </div>
+
+      <div class="testimonials-carousel">
+        <div class="testimonial-track">
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-rating">
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "SetZet transformed our entire digital presence. The results
+              exceeded every expectation. Our conversion rate tripled in just 3
+              months."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img
+                  src="client-sarah.png"
+                  alt="Sarah Mitchell"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="author-info">
+                <div class="author-name">Sarah Mitchell</div>
+                <div class="author-title">CEO, TechFlow Inc.</div>
+              </div>
+            </div>
+            <div class="testimonial-metric">
+              <div class="metric-value">+320%</div>
+              <div class="metric-label">Conversion Increase</div>
+            </div>
+          </div>
+
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-rating">
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "The attention to detail and creative vision SetZet brought to our
+              brand refresh was phenomenal. They truly understand modern
+              design."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img
+                  src="client-james.png"
+                  alt="James Chen"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="author-info">
+                <div class="author-name">James Chen</div>
+                <div class="author-title">Founder, Artisan Co.</div>
+              </div>
+            </div>
+            <div class="testimonial-metric">
+              <div class="metric-value">98%</div>
+              <div class="metric-label">Client Satisfaction</div>
+            </div>
+          </div>
+
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-rating">
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "Working with SetZet was a game-changer. They delivered a mobile
+              app that our users absolutely love. 5-star reviews across the
+              board."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img
+                  src="client-sarah.png"
+                  alt="Emma Rodriguez"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="author-info">
+                <div class="author-name">Emma Rodriguez</div>
+                <div class="author-title">Product Lead, FinHub</div>
+              </div>
+            </div>
+            <div class="testimonial-metric">
+              <div class="metric-value">4.9★</div>
+              <div class="metric-label">App Store Rating</div>
+            </div>
+          </div>
+
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-rating">
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "Their SEO strategy completely revolutionized our online
+              visibility. We're now ranking #1 for all our target keywords.
+              Incredible work."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img
+                  src="client-james.png"
+                  alt="Michael Kumar"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="author-info">
+                <div class="author-name">Michael Kumar</div>
+                <div class="author-title">CMO, GlobalVentures</div>
+              </div>
+            </div>
+            <div class="testimonial-metric">
+              <div class="metric-value">+580%</div>
+              <div class="metric-label">Organic Traffic</div>
+            </div>
+          </div>
+
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-rating">
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "SetZet doesn't just build websites, they craft experiences. Our
+              new platform is stunning, fast, and our customers can't stop
+              raving about it."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img
+                  src="client-sarah.png"
+                  alt="Lisa Cooper"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="author-info">
+                <div class="author-name">Lisa Cooper</div>
+                <div class="author-title">Director, LuxeFashion</div>
+              </div>
+            </div>
+            <div class="testimonial-metric">
+              <div class="metric-value">2.3s</div>
+              <div class="metric-label">Load Time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn prev" onclick="moveCarousel(-1)">←</button>
+        <div class="carousel-dots"></div>
+        <button class="carousel-btn next" onclick="moveCarousel(1)">→</button>
+      </div>
+
+      <div class="testimonial-stats">
+        <div class="stat-block fade-in">
+          <div class="stat-number counter" data-target="500">0</div>
+          <div class="stat-text">Happy Clients</div>
+        </div>
+        <div class="stat-block fade-in">
+          <div class="stat-number counter" data-target="4.9">0</div>
+          <div class="stat-text">Average Rating</div>
+        </div>
+        <div class="stat-block fade-in">
+          <div class="stat-number counter" data-target="100">0</div>
+          <div class="stat-text">Satisfaction</div>
+        </div>
+        <div class="stat-block fade-in">
+          <div class="stat-number counter" data-target="12">0</div>
+          <div class="stat-text">Awards Won</div>
+        </div>
+      </div>
+
+      <div class="video-testimonials">
+        <div class="video-section-header fade-in">
+          <h2 class="video-title">see it in action</h2>
+          <p class="video-subtitle">
+            Watch how we've transformed businesses with our innovative digital
+            solutions. From concept to execution, see the magic unfold.
+          </p>
+
+          <div class="video-categories">
+            <button class="category-chip active">All Projects</button>
+            <button class="category-chip">Web Design</button>
+            <button class="category-chip">Mobile Apps</button>
+            <button class="category-chip">Branding</button>
+            <button class="category-chip">Case Studies</button>
+          </div>
+        </div>
+
+        <div class="video-wall">
+          <div class="video-grid">
+            <div class="video-card featured fade-in" data-video="6">
+              <div class="video-thumbnail">
+                <img
+                  src="thumb-cloudflow.png"
+                  class="video-bg"
+                  alt="CloudFlow SaaS"
+                />
+                <div class="play-button"><i class="ri-play-fill"></i></div>
+                <div class="video-duration">
+                  <i class="ri-time-line"></i> 1:00
+                </div>
+                <div class="video-views"><i class="ri-eye-line"></i> 11.2K</div>
+              </div>
+              <div class="video-info">
+                <div class="video-category">Web Platform</div>
+                <h4>CloudFlow SaaS Build</h4>
+                <p>Enterprise platform serving 100K+ users daily.</p>
+              </div>
+            </div>
+
+            <div class="video-card medium fade-in" data-video="2">
+              <div class="video-thumbnail">
+                <img src="thumb-finhub.png" class="video-bg" alt="FinHub App" />
+                <div class="play-button"><i class="ri-play-fill"></i></div>
+                <div class="video-duration">
+                  <i class="ri-time-line"></i> 1:00
+                </div>
+                <div class="video-views"><i class="ri-eye-line"></i> 8.2K</div>
+              </div>
+              <div class="video-info">
+                <div class="video-category">Mobile App</div>
+                <h4>FinHub Launch Story</h4>
+                <p>
+                  Building a FinTech app from scratch to 50K users in 3 months.
+                </p>
+              </div>
+            </div>
+
+            <div class="video-card small fade-in" data-video="3">
+              <div class="video-thumbnail">
+                <img
+                  src="thumb-luxefashion.png"
+                  class="video-bg"
+                  alt="LuxeFashion"
+                />
+                <div class="play-button"><i class="ri-play-fill"></i></div>
+                <div class="video-duration">
+                  <i class="ri-time-line"></i> 1:00
+                </div>
+                <div class="video-views"><i class="ri-eye-line"></i> 15.3K</div>
+              </div>
+              <div class="video-info">
+                <div class="video-category">E-Commerce</div>
+                <h4>LuxeFashion Success</h4>
+                <p>300% conversion rate increase in 90 days.</p>
+              </div>
+            </div>
+
+            <div class="video-card small fade-in" data-video="4">
+              <div class="video-thumbnail">
+                <img
+                  src="thumb-globalventures.png"
+                  class="video-bg"
+                  alt="GlobalVentures SEO"
+                />
+                <div class="play-button"><i class="ri-play-fill"></i></div>
+                <div class="video-duration">
+                  <i class="ri-time-line"></i> 1:00
+                </div>
+                <div class="video-views"><i class="ri-eye-line"></i> 6.7K</div>
+              </div>
+              <div class="video-info">
+                <div class="video-category">SEO Campaign</div>
+                <h4>GlobalVentures Growth</h4>
+                <p>580% organic traffic increase through strategic SEO.</p>
+              </div>
+            </div>
+
+            <div class="video-card small fade-in" data-video="5">
+              <div class="video-thumbnail">
+                <img
+                  src="thumb-artisanco.png"
+                  class="video-bg"
+                  alt="Artisan Co Branding"
+                />
+                <div class="play-button"><i class="ri-play-fill"></i></div>
+                <div class="video-duration">
+                  <i class="ri-time-line"></i> 1:00
+                </div>
+                <div class="video-views"><i class="ri-eye-line"></i> 9.4K</div>
+              </div>
+              <div class="video-info">
+                <div class="video-category">Brand Identity</div>
+                <h4>Artisan Co. Redesign</h4>
+                <p>Crafting a timeless brand identity system.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-cta fade-in">
+          <div class="cta-decoration"></div>
+          <div class="cta-decoration"></div>
+
+          <div class="cta-container">
+            <div class="cta-content">
+              <span class="cta-eyebrow">Let's Work Together</span>
+              <h3>Ready to create<br />your success story?</h3>
+              <p>
+                Let's transform your vision into reality. Schedule a free
+                consultation today and discover how we can elevate your brand.
+              </p>
+
+              <div class="cta-buttons">
+                <button class="cta-btn-primary">Start Your Project</button>
+                <button class="cta-btn-secondary">Book a Call</button>
+              </div>
+
+              <div class="cta-trust">
+                <div class="trust-item">
+                  <span class="trust-icon"
+                    ><i class="ri-checkbox-circle-fill"></i
+                  ></span>
+                  <span>Free Consultation</span>
+                </div>
+                <div class="trust-item">
+                  <span class="trust-icon"
+                    ><i class="ri-checkbox-circle-fill"></i
+                  ></span>
+                  <span>No Credit Card Required</span>
+                </div>
+                <div class="trust-item">
+                  <span class="trust-icon"
+                    ><i class="ri-checkbox-circle-fill"></i
+                  ></span>
+                  <span>24/7 Support</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Video Modal -->
+      <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+          <button class="modal-close" onclick="closeVideoModal()">
+            <i class="ri-close-line"></i>
+          </button>
+          <div class="modal-video-player" id="modalPlayer">▶ Video Player</div>
+          <div class="modal-details">
+            <h3 id="modalTitle">Project Title</h3>
+            <p id="modalDescription">Project description goes here...</p>
+            <div class="modal-stats">
+              <div class="modal-stat">
+                <div class="modal-stat-value">12.5K</div>
+                <div class="modal-stat-label">
+                  <i class="ri-eye-line"></i> Views
+                </div>
+              </div>
+              <div class="modal-stat">
+                <div class="modal-stat-value">98%</div>
+                <div class="modal-stat-label">
+                  <i class="ri-pie-chart-line"></i> Success Rate
+                </div>
+              </div>
+              <div class="modal-stat">
+                <div class="modal-stat-value">6 Weeks</div>
+                <div class="modal-stat-label">
+                  <i class="ri-calendar-line"></i> Timeline
+                </div>
+              </div>
+              <div class="modal-stat">
+                <div class="modal-stat-value">5★</div>
+                <div class="modal-stat-label">
+                  <i class="ri-star-line"></i> Rating
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chatbot -->
+    <button class="chatbot-trigger" onclick="toggleChatbot()">
+      <i class="ri-chat-smile-2-fill"></i>
+    </button>
+    <div class="chatbot-window" id="chatbot">
+      <div class="chatbot-header">SetZet AI Assistant</div>
+      <div class="chatbot-messages" id="messages">
+        <p style="color: var(--text-secondary); padding: 1rem">
+          👋 Hi! I'm here to help you learn about our services. How can I assist
+          you today?
+        </p>
+      </div>
+      <div class="chatbot-input">
+        <input
+          type="text"
+          placeholder="Ask me anything..."
+          id="chatInput"
+          onkeypress="handleChatEnter(event)"
+        />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+      ↑
+    </button>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-main">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logo">SetZet</div>
+            <p class="footer-tagline">
+              A strategy-led design studio crafting exceptional digital
+              experiences for ambitious brands. Let's build something
+              extraordinary together.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="Twitter"
+                ><i class="ri-twitter-x-line"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"
+                ><i class="ri-linkedin-fill"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="Instagram"
+                ><i class="ri-instagram-line"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="Dribbble"
+                ><i class="ri-dribbble-line"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="Behance"
+                ><i class="ri-behance-line"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h4>Services</h4>
+            <ul class="footer-links">
+              <li><a href="#services">Web Development</a></li>
+              <li><a href="#services">Mobile Apps</a></li>
+              <li><a href="#services">SEO & Marketing</a></li>
+              <li><a href="#services">UI/UX Design</a></li>
+              <li><a href="#services">Branding</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Company</h4>
+            <ul class="footer-links">
+              <li><a href="#work">Our Work</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Newsletter</h4>
+            <div class="footer-newsletter">
+              <p style="color: var(--text-secondary); margin-bottom: 1rem">
+                Subscribe to get updates on design trends and industry insights.
+              </p>
+              <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                <input
+                  type="email"
+                  class="newsletter-input"
+                  placeholder="Enter your email"
+                  required
+                />
+                <button type="submit" class="newsletter-btn">→</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-love">
+            <span>© 2026 SetZet. Made with</span>
+            <span class="heart">♥</span>
+            <span>in San Francisco</span>
+          </div>
+          <ul class="footer-bottom-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
 
     <script>
       // Three.js 3D Scene Setup
