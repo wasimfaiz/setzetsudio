@@ -490,10 +490,6 @@
         display: block;
       }
 
-      #heroTextOriginal:hover {
-        opacity: 0;
-      }
-
       #liquidTextContainer {
         position: absolute;
         top: 0;
@@ -508,10 +504,6 @@
 
       #liquidTextContainer canvas {
         background: transparent !important;
-      }
-
-      #heroTextOriginal:hover + #liquidTextContainer {
-        opacity: 1;
       }
 
       .water-canvas {
@@ -3828,26 +3820,23 @@
 
         <div class="video-wall">
           <div class="video-grid">
-            <div class="video-card featured fade-in" data-video="1">
+            <div class="video-card featured fade-in" data-video="6">
               <div class="video-thumbnail">
                 <img
-                  src="thumb-techflow.png"
+                  src="thumb-cloudflow.png"
                   class="video-bg"
-                  alt="TechFlow Rebrand"
+                  alt="CloudFlow SaaS"
                 />
                 <div class="play-button"><i class="ri-play-fill"></i></div>
                 <div class="video-duration">
                   <i class="ri-time-line"></i> 1:00
                 </div>
-                <div class="video-views"><i class="ri-eye-line"></i> 12.5K</div>
+                <div class="video-views"><i class="ri-eye-line"></i> 11.2K</div>
               </div>
               <div class="video-info">
-                <div class="video-category">Featured Case Study</div>
-                <h4>TechFlow Complete Rebrand</h4>
-                <p>
-                  How we transformed a startup into an industry leader with
-                  strategic branding and a cutting-edge digital platform.
-                </p>
+                <div class="video-category">Web Platform</div>
+                <h4>CloudFlow SaaS Build</h4>
+                <p>Enterprise platform serving 100K+ users daily.</p>
               </div>
             </div>
 
@@ -3926,26 +3915,6 @@
                 <div class="video-category">Brand Identity</div>
                 <h4>Artisan Co. Redesign</h4>
                 <p>Crafting a timeless brand identity system.</p>
-              </div>
-            </div>
-
-            <div class="video-card small fade-in" data-video="6">
-              <div class="video-thumbnail">
-                <img
-                  src="thumb-cloudflow.png"
-                  class="video-bg"
-                  alt="CloudFlow SaaS"
-                />
-                <div class="play-button"><i class="ri-play-fill"></i></div>
-                <div class="video-duration">
-                  <i class="ri-time-line"></i> 1:00
-                </div>
-                <div class="video-views"><i class="ri-eye-line"></i> 11.2K</div>
-              </div>
-              <div class="video-info">
-                <div class="video-category">Web Platform</div>
-                <h4>CloudFlow SaaS Build</h4>
-                <p>Enterprise platform serving 100K+ users daily.</p>
               </div>
             </div>
           </div>
@@ -4382,161 +4351,85 @@
 
       // Liquid Text Effect with PixiJS
       const heroTitle = document.getElementById("heroTitle");
-      const liquidContainer = document.getElementById("liquidTextContainer");
+      // Interactive Text Hover Effect (GSAP)
       const heroTextOriginal = document.getElementById("heroTextOriginal");
+      const liquidContainer = document.getElementById("liquidTextContainer");
 
-      if (heroTextOriginal && liquidContainer && typeof PIXI !== "undefined") {
-        let app, displacementSprite, displacementFilter;
-        let mouseX = 0,
-          mouseY = 0;
-        let isHovering = false;
+      if (heroTextOriginal) {
+        // Hide the unwanted canvas container
+        if (liquidContainer) liquidContainer.style.display = "none";
 
-        function initLiquidEffect() {
-          const rect = heroTextOriginal.getBoundingClientRect();
+        // Helper to split text into characters while preserving structure
+        function splitTextIntoChars(element) {
+          const contents = Array.from(element.childNodes);
+          element.innerHTML = ""; // Clear existing
 
-          // Create PixiJS application with transparent background
-          app = new PIXI.Application({
-            width: rect.width,
-            height: rect.height,
-            backgroundAlpha: 0,
-            transparent: true,
-            resolution: window.devicePixelRatio || 1,
-            antialias: true,
-            autoDensity: true,
-            clearBeforeRender: true,
-          });
+          contents.forEach((node) => {
+            if (node.nodeType === 3) {
+              // Text Node
+              const text = node.textContent;
+              const chars = text.split("");
+              chars.forEach((char) => {
+                if (char === "\n") return; // Skip line breaks in source
+                const span = document.createElement("span");
+                span.textContent = char;
+                span.style.display = "inline-block";
+                span.style.transition = "color 0.3s";
+                span.className = "hover-char"; // For event delegation identification
 
-          liquidContainer.appendChild(app.view);
-          app.view.style.width = "100%";
-          app.view.style.height = "100%";
-          app.view.style.background = "transparent";
+                // Space handling
+                if (char === " ") {
+                  span.style.width = "0.3em";
+                }
 
-          // Get computed text color from the original text
-          const computedStyle = window.getComputedStyle(heroTextOriginal);
-          const textColor = computedStyle.color || "#292524";
-
-          // Create text sprite
-          const style = new PIXI.TextStyle({
-            fontFamily: "Playfair Display, Georgia, serif",
-            fontSize: window.innerWidth > 768 ? 80 : 40,
-            fontWeight: "400",
-            fill: ["#292524", "#8B5CF6"],
-            fillGradientType: 0,
-            fillGradientStops: [0.3, 1],
-            letterSpacing: -0.5,
-            lineHeight: window.innerWidth > 768 ? 88 : 44,
-          });
-
-          const text = new PIXI.Text(
-            "Helping our partners\nbuild original brands\nthat shine.",
-            style,
-          );
-          text.anchor.set(0, 0);
-          text.x = 0;
-          text.y = 0;
-
-          // Create canvas for displacement map
-          const canvas = document.createElement("canvas");
-          canvas.width = 512;
-          canvas.height = 512;
-          const ctx = canvas.getContext("2d");
-
-          // Create cloud-like displacement map
-          for (let i = 0; i < 3; i++) {
-            const gradient = ctx.createRadialGradient(
-              Math.random() * 512,
-              Math.random() * 512,
-              0,
-              Math.random() * 512,
-              Math.random() * 512,
-              256,
-            );
-            gradient.addColorStop(
-              0,
-              `rgba(${Math.random() * 255}, 128, ${Math.random() * 255}, 0.8)`,
-            );
-            gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 512, 512);
-          }
-
-          displacementSprite = PIXI.Sprite.from(canvas);
-          displacementSprite.texture.baseTexture.wrapMode =
-            PIXI.WRAP_MODES.REPEAT;
-
-          // Create displacement filter
-          displacementFilter = new PIXI.DisplacementFilter(displacementSprite);
-          displacementFilter.scale.x = 0;
-          displacementFilter.scale.y = 0;
-
-          // Add to stage
-          app.stage.addChild(displacementSprite);
-          app.stage.addChild(text);
-          text.filters = [displacementFilter];
-
-          // Animation loop
-          let time = 0;
-          app.ticker.add((delta) => {
-            time += delta * 0.05;
-
-            displacementSprite.x = Math.sin(time) * 50;
-            displacementSprite.y = Math.cos(time) * 50;
-            displacementSprite.rotation = time * 0.1;
-
-            if (isHovering) {
-              // Liquid distortion on hover
-              const targetScaleX = 60 + Math.sin(time * 2) * 20;
-              const targetScaleY = 60 + Math.cos(time * 2) * 20;
-
-              displacementFilter.scale.x +=
-                (targetScaleX - displacementFilter.scale.x) * 0.1;
-              displacementFilter.scale.y +=
-                (targetScaleY - displacementFilter.scale.y) * 0.1;
-            } else {
-              // Return to normal
-              displacementFilter.scale.x +=
-                (0 - displacementFilter.scale.x) * 0.1;
-              displacementFilter.scale.y +=
-                (0 - displacementFilter.scale.y) * 0.1;
+                element.appendChild(span);
+              });
+            } else if (node.nodeType === 1) {
+              // Element Node (e.g., <br> or <span>)
+              if (node.tagName === "BR") {
+                element.appendChild(node.cloneNode(true));
+              } else {
+                const newSpan = node.cloneNode(true);
+                if (newSpan.childNodes.length > 0) {
+                  // If it has text content (like "that shine"), split it too
+                  splitTextIntoChars(newSpan);
+                }
+                element.appendChild(newSpan);
+              }
             }
           });
         }
 
-        // Mouse interaction - only on text span
-        heroTextOriginal.addEventListener("mouseenter", () => {
-          isHovering = true;
-          if (!app) initLiquidEffect();
-          liquidContainer.style.opacity = "1";
-        });
+        // Initialize Split
+        splitTextIntoChars(heroTextOriginal);
 
-        heroTextOriginal.addEventListener("mouseleave", () => {
-          isHovering = false;
-          liquidContainer.style.opacity = "0";
-        });
-
-        heroTextOriginal.addEventListener("mousemove", (e) => {
-          if (!app) return;
-          const rect = heroTextOriginal.getBoundingClientRect();
-          mouseX = (e.clientX - rect.left) / rect.width;
-          mouseY = (e.clientY - rect.top) / rect.height;
-
-          if (displacementSprite) {
-            displacementSprite.x = mouseX * 100 - 50;
-            displacementSprite.y = mouseY * 100 - 50;
+        // Add Hover Animations via Event Delegation
+        heroTextOriginal.addEventListener("mouseover", (e) => {
+          const target = e.target;
+          if (target.classList.contains("hover-char")) {
+            gsap.to(target, {
+              y: -15,
+              scaleY: 1.3,
+              scaleX: 0.8,
+              color: "#8B5CF6", // Accent color
+              duration: 0.4,
+              ease: "back.out(2.5)",
+            });
           }
         });
 
-        // Cleanup on resize
-        let resizeTimeout;
-        window.addEventListener("resize", () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            if (app) {
-              app.destroy(true);
-              app = null;
-              liquidContainer.innerHTML = "";
-            }
-          }, 500);
+        heroTextOriginal.addEventListener("mouseout", (e) => {
+          const target = e.target;
+          if (target.classList.contains("hover-char")) {
+            gsap.to(target, {
+              y: 0,
+              scaleY: 1,
+              scaleX: 1,
+              color: "", // Reset to inherited
+              duration: 0.5,
+              ease: "elastic.out(1, 0.3)",
+            });
+          }
         });
       }
 
@@ -4889,36 +4782,45 @@
       });
 
       // Testimonial Carousel - Infinite Loop
-      let currentSlide = 1;
+      let currentSlide = 3; // Starts after prepended clones
       const testimonialTrack = document.querySelector(".testimonial-track");
       let testimonialCards = document.querySelectorAll(".testimonial-card");
       const carouselDots = document.querySelector(".carousel-dots");
       let isTransitioning = false;
+      const cloneCount = 3; // Number of clones on each side
 
-      // Setup Infinite Loop (Clones)
+      // Setup Infinite Loop (Multi-Clones)
       if (testimonialTrack && testimonialCards.length > 0) {
-        // Clone first and last cards
-        const firstClone = testimonialCards[0].cloneNode(true);
-        const lastClone =
-          testimonialCards[testimonialCards.length - 1].cloneNode(true);
+        const originalCards = Array.from(testimonialCards);
 
-        firstClone.id = "first-clone";
-        lastClone.id = "last-clone";
+        // Clone Last N cards to Prepends (Order: [N-3], [N-2], [N-1])
+        // We append them in reverse order to the start so they appear correctly
+        // Actually, easier: Loop N times, taking from end.
+        for (let i = 0; i < cloneCount; i++) {
+          const lastClone =
+            originalCards[originalCards.length - 1 - i].cloneNode(true);
+          lastClone.classList.add("clone");
+          testimonialTrack.insertBefore(
+            lastClone,
+            testimonialTrack.firstElementChild,
+          );
+        }
 
-        testimonialTrack.appendChild(firstClone);
-        testimonialTrack.insertBefore(
-          lastClone,
-          testimonialTrack.firstElementChild,
-        );
+        // Clone First N cards to Appends
+        for (let i = 0; i < cloneCount; i++) {
+          const firstClone = originalCards[i].cloneNode(true);
+          firstClone.classList.add("clone");
+          testimonialTrack.appendChild(firstClone);
+        }
 
         // Re-query cards to include clones
         testimonialCards = document.querySelectorAll(".testimonial-card");
       }
 
       // Create dots (based on original count)
-      if (carouselDots && testimonialCards.length > 2) {
-        // Original count is total - 2 clones
-        const originalCount = testimonialCards.length - 2;
+      if (carouselDots && testimonialCards.length > cloneCount * 2) {
+        // Original count is total - all clones
+        const originalCount = testimonialCards.length - cloneCount * 2;
 
         for (let i = 0; i < originalCount; i++) {
           const dot = document.createElement("div");
@@ -4926,7 +4828,7 @@
           if (i === 0) dot.classList.add("active");
           dot.addEventListener("click", () => {
             if (isTransitioning) return;
-            currentSlide = i + 1; // Map 0 to 1 (first real slide)
+            currentSlide = i + cloneCount; // Map dot 0 to first real slide
             updateCarousel();
           });
           carouselDots.appendChild(dot);
@@ -4940,10 +4842,7 @@
 
       function moveCarousel(direction) {
         if (isTransitioning) return;
-
-        const maxSlide = testimonialCards.length - 1;
         currentSlide += direction;
-
         updateCarousel(true);
       }
 
@@ -4971,19 +4870,21 @@
             "transitionend",
             () => {
               isTransitioning = false;
+              const originalCount = testimonialCards.length - cloneCount * 2;
 
-              // If at Last Clone (End), jump to First Real Card
-              if (currentSlide === testimonialCards.length - 1) {
+              // Check Bounds
+              // If we scrolled past the last real item into appended clones
+              if (currentSlide >= originalCount + cloneCount) {
                 testimonialTrack.style.transition = "none";
-                currentSlide = 1;
+                currentSlide = currentSlide - originalCount;
                 const resetOffset = -(currentSlide * (cardWidth + gap));
                 testimonialTrack.style.transform = `translateX(${resetOffset}px)`;
               }
 
-              // If at First Clone (Start), jump to Last Real Card
-              if (currentSlide === 0) {
+              // If we scrolled before the first real item into prepended clones
+              else if (currentSlide < cloneCount) {
                 testimonialTrack.style.transition = "none";
-                currentSlide = testimonialCards.length - 2;
+                currentSlide = currentSlide + originalCount;
                 const resetOffset = -(currentSlide * (cardWidth + gap));
                 testimonialTrack.style.transform = `translateX(${resetOffset}px)`;
               }
@@ -4992,15 +4893,14 @@
           );
         }
 
-        // Update dots (Map currentSlide to dot index)
-        // Slide 1 -> Dot 0, Slide 2 -> Dot 1 ... Slide Max -> Dot Max
-        // Slide 0 (Clone) -> Dot Max
-        // Slide Last (Clone) -> Dot 0
-        const originalCount = testimonialCards.length - 2;
-        let activeDotIndex = currentSlide - 1;
+        // Update dots
+        const originalCount = testimonialCards.length - cloneCount * 2;
+        let activeDotIndex = currentSlide - cloneCount;
 
-        if (currentSlide === 0) activeDotIndex = originalCount - 1;
-        if (currentSlide === testimonialCards.length - 1) activeDotIndex = 0;
+        // Normalize for clones
+        if (activeDotIndex < 0) activeDotIndex = originalCount + activeDotIndex;
+        if (activeDotIndex >= originalCount)
+          activeDotIndex = activeDotIndex - originalCount;
 
         document.querySelectorAll(".carousel-dot").forEach((dot, index) => {
           dot.classList.toggle("active", index === activeDotIndex);
